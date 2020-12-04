@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Product Details
+{% endblock %}
+
+{% block article %}
+
+<div class="jumbotron" id="jumbotron">
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{product[0]['link']}}" alt="{{product[0]['title']}}" id="prod_specs_img">
+        <div class="media-body">
+            <h1 class="display-4">{{ product[0]['title'] }}</h1>
+            <p class="lead">{{ product[0]['description'] }}</p>
+            <hr class="my-4">
+            <p class="lead" id="prod_specs_title">Technical Specs</p>
+            <div id="prod_specs_list">
+                {% for spec in specs %}
+                    {% if product[0]['sku'] > 1000 %}
+                        <li class="lead" id="prod_specs_item">{{ spec['spec'] }}</li>
+                    {% else %}
+                        <li class="lead" id="prod_specs_item">File: {{ product[0]['file'] }}</li>
+                        <li class="lead" id="prod_specs_item">Material: {{ spec['material'] }}</li>
+                        <li class="lead" id="prod_specs_item">Color: {{ spec['color'] }}</li>
+                        <li class="lead" id="prod_specs_item">Unit Price: ${{ spec['quotation'] }}</li>
+                        <li class="lead" id="prod_specs_item">Units: {{ spec['quantity'] }}</li>
+                        <li class="lead" id="prod_specs_item">Comments: {{ spec['comments'] }}</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Show total, unit price for products, total for printing job -->
+            {% if product[0]['sku'] > 1000 %}
+                <p class="lead" id="prod_specs_title">Price: {{ product[0]['price_usd'] }}</p>
+                <div id="prod_specs_cart">
+            {% else %}
+                <p class="lead" id="prod_specs_title">Total: {{ product[0]['price_usd'] }}</p>
+                <div id="prod_specs_cart">
+            {% endif %}
+
+            <!-- if product is not printing job, show stock in case of any, or out of stock if no more units available -->
+            {% if product[0]['sku'] > 1000 %}
+
+                {% if product[0]['stock'] > 0 %}
+                    <p class="lead" id="prod_stock">{{ product[0]['stock'] }} units in stock</p>
+                {% else %}
+                    <p class="lead" id="prod_outofstock">Out of stock</p>
+                {% endif %}
+            {% endif %}
+
+                <!-- if product is not printing job (which for sure is already in cart), show add to cart -->
+                {% if product[0]['sku'] > 1000 %}
+                    <form action="/cart" method="post">
+                        <input name="id" type="hidden" value="{{ product[0]['id'] }}">
+                        <input class="btn btn-secondary btn-lg" id="bt_mdn_cart" type="submit" value="Add to cart"></button>
+                        <!-- placeholder for the units selected by the user, to be sumibtted on "Add to cart" click, added here for aesthetic reasons
+                        (including the "-" and "+" buttons and text box inside the form resulted in a mess-->
+                        <input id="prod_stock_2" name="prod_stock_2" type="hidden" value="1">
+                    </form>
+                    <button onclick="counter_min({{product.id}})" class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_min_det">-</button>
+                    <div class="form-group">
+                        <input class="form-control" id="prod_quantity_det" name="quantity" value="1">
+                        <!-- placeholder for the units in stock, to be read from the script -->
+                        <input class="form-control" id="prod_stock_1" type="hidden" value="{{ product[0]['stock'] }}">
+                    </div>
+                    <button onclick="counter_add({{product.id}})" class="btn btn-outline-secondary" id="bt_mdn_add_det" >+</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- script to increment/decrement units for a product -->
+<script>
+
+    window.addEventListener("load", function(){
+        if (document.getElementById('prod_stock_1').value == 0)
+        {
+            document.getElementById('bt_mdn_cart').disabled = true;
+            document.getElementById('prod_quantity_det').value = 0;
+        }
+    });
+
+    function counter_add()
+    {
+        if (Number(document.getElementById('prod_quantity_det').value) < Number(document.getElementById('prod_stock_1').value))
+        {
+            // Read the value from quantity#prod_id
+            document.getElementById('prod_quantity_det').value ++;
+            document.getElementById('prod_stock_2').value = document.getElementById('prod_quantity_det').value;
+        }
+    }
+
+    function counter_min()
+    {
+        // Value can't be lower than 0
+        if (Number(document.getElementById('prod_quantity_det').value) > 1)
+        {
+            document.getElementById('prod_quantity_det').value --;
+            document.getElementById('prod_stock_2').value = document.getElementById('prod_quantity_det').value;
+        }
+    }
+</script>
+
+
+{% endblock %}

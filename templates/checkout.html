@@ -1,0 +1,295 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Check Out
+{% endblock %}
+
+	<head>
+		<!-- Bootstrap core CSS -->
+		<link href="/static/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="/static/form-validation.css" rel="stylesheet">
+	</head>
+
+{% block article %}
+
+<div id="container_checkout">
+    <div class="container">
+		<div class="row">
+			<div class="col-md-4 order-md-2 mb-4">
+				<h4 class="d-flex justify-content-between align-items-center mb-3">
+					<span class="text-muted">Your cart</span>
+					<span class="badge badge-secondary badge-pill">{{ cart_count }}</span>
+				</h4>
+				<ul class="list-group mb-3">
+					{% for product in cart %}
+						<li class="list-group-item d-flex justify-content-between lh-condensed">
+							<img class="align-self-start mr-3" src="{{product.link}}" alt="{{product.title}}" id="prod_checkout_img">
+							<div>
+								{% if product.id == 0 %}
+									<h6 class="my-0">{{ product.title }} - {{ product.description }}  </h6>
+									<small class="text-muted">{{ product.category }} x {{ product.quantity }}</small>
+								{% else %}
+									<h6 class="my-0">{{ product.title }}</h6>
+									<small class="text-muted">{{ product.category }} x {{ product.quantity }}</small>
+								{% endif %}
+							</div>
+							<span class="text-muted">{{ product.total_usd }}</span>
+						</li>
+					{% endfor %}
+					<li class="list-group-item d-flex justify-content-between">
+						<span>Sub total (USD)</span>
+						<strong>{{ cart_amount }}</strong>
+					</li>
+					<li class="list-group-item d-flex justify-content-between bg-light">
+						<div class="text-success">
+							<h6 class="my-0">Promo code</h6>
+						</div>
+						<span class="text-success">-{{ promo }}</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between">
+						<span>Total (USD)</span>
+						{% if not cart_amount_discount %}
+							<strong>{{ cart_amount }}</strong>
+						{% else %}
+							<strong>{{ cart_amount_discount }}</strong>
+						{% endif %}
+					</li>
+				</ul>
+
+				<form class="card p-2" action="/promo" method="post">
+					<div class="input-group">
+						<input type="text" class="form-control" name="promo-code" autocomplete="off" placeholder="Promo code">
+						<div class="input-group-append-">
+							<button type="submit" class="btn btn-secondary">Redeem</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">Shiping address</h4>
+				<form class="needs-validation" action="/checkout" method="post" novalidate>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<!-- Placeholder to put discount amount, to be read at checkout and to be computed before inserting the order to the database -->
+							<input name="discount" type="hidden" value="{{ discount }}">
+							<label for="firstName">First name</label>
+							<input name="first_name" type="text" class="form-control" id="firstName" placeholder="John" value="{{ user[0].name }}" autocomplete="off" required>
+							<div class="invalid-feedback">
+								Valid first name is required.
+							</div>
+					</div>
+						<div class="col-md-6 mb-3">
+							<label for="lastName">Last name</label>
+							<input name="last_name" type="text" class="form-control" id="lastName" value="{{ user[0].last_name }}" autocomplete="off" required>
+							<div class="invalid-feedback">
+								Valid last name is required.
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="email">Email</label>
+							<input name="email" type="text" class="form-control" id="email" value="{{ user[0].email }}" autocomplete="off" required>
+							<div class="invalid-feedback">
+								Please enter a valid email address for shipping updates.
+							</div>
+					</div>
+						<div class="col-md-6 mb-3">
+							<label for="phone">Phone</label>
+							<input name="phone" type="text" class="form-control" id="phone" placeholder="+1 (123) 456-7890" value="" autocomplete="off" required>
+							<div class="invalid-feedback">
+								Please enter a phone number in case of shipping issues.
+							</div>
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="address">Address</label>
+						<input name="address" type="text" class="form-control" id="address" placeholder="1234 Main St" autocomplete="off" required>
+						<div class="invalid-feedback">
+							Please enter your shipping address.
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+						<input name="address2" type="text" class="form-control" id="address2" placeholder="Apartment or suite" autocomplete="off">
+					</div>
+
+					<div class="row">
+						<div class="col-md-5 mb-3">
+							<label for="country">Country</label>
+							<select name="country" class="custom-select d-block w-100" id="country" required onchange='country_name()'>
+								<option value="">Choose...</option>
+								<option>United States</option>
+								<option>Argentina</option>
+							</select>
+						<div class="invalid-feedback">
+							Please select a valid country.
+						</div>
+					</div>
+						<div class="col-md-4 mb-3">
+							<label id="label_state" for="state">State</label>
+							<select name="state" class="custom-select d-block w-100" id="state" required>
+								<option value="">Choose...</option>
+							</select>
+						<div class="invalid-feedback">
+							Please provide a valid state.
+						</div>
+					</div>
+						<div class="col-md-3 mb-3">
+							<label for="zip">Zip</label>
+							<input name="zipcode" type="text" class="form-control" id="zip" placeholder="12345" autocomplete="off" required>
+							<div class="invalid-feedback">
+								Zip code required.
+							</div>
+						</div>
+					</div>
+					<hr class="mb-4">
+					<div class="custom-control custom-checkbox">
+						<input name="billing_address" type="checkbox" class="custom-control-input" id="same-address" onclick="show_billing()">
+						<label class="custom-control-label" for="same-address">Billing address is the same as my shiping address</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input name="save_info" type="checkbox" class="custom-control-input" id="save-info">
+						<label class="custom-control-label" for="save-info">Save this information for next time</label>
+					</div>
+					<hr class="mb-4">
+
+					<div id="billing_data" >
+					<h4 class="mb-3">Billing address</h4>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="firstName">First name</label>
+								<input name="first_name" type="text" class="form-control" id="billing_firstName" placeholder="John" value="" required>
+								<div class="invalid-feedback">
+									Valid first name is required.
+								</div>
+						</div>
+							<div class="col-md-6 mb-3">
+								<label for="lastName">Last name</label>
+								<input name="last_name" type="text" class="form-control" id="billing_lastName" placeholder="Doe" value="" required>
+								<div class="invalid-feedback">
+									Valid last name is required.
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="address">Address</label>
+							<input name="address" type="text" class="form-control" id="billing_address" placeholder="1234 Main St" required>
+							<div class="invalid-feedback">
+								Please enter your billing address.
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+							<input name="address2" type="text" class="form-control" id="billing_address2" placeholder="Apartment or suite">
+						</div>
+
+						<div class="row">
+							<div class="col-md-5 mb-3">
+								<label for="country">Country</label>
+								<select name="billing_country" class="custom-select d-block w-100" id="billing_country" required onchange='country_name()'>
+									<option value="">Choose...</option>
+									<option>United States</option>
+									<option>Argentina</option>
+								</select>
+							<div class="invalid-feedback">
+								Please select a valid country.
+							</div>
+						</div>
+							<div class="col-md-4 mb-3">
+								<label  id="billing_label_state" for="state">State</label>
+								<select name="billing_state" class="custom-select d-block w-100" id="billing_state" required>
+									<option value="">Choose...</option>
+								</select>
+							<div class="invalid-feedback">
+								Please provide a valid state.
+							</div>
+						</div>
+							<div class="col-md-3 mb-3">
+								<label for="zip">Zip</label>
+								<input name="zipcode" type="text" class="form-control" id="billing_zip" placeholder="12345" required>
+								<div class="invalid-feedback">
+									Zip code required.
+								</div>
+							</div>
+						</div>
+						<hr class="mb-4">
+					</div>
+
+					<h4 class="mb-3">Payment</h4>
+
+					<div class="d-block my-3">
+						<div class="custom-control custom-radio">
+							<input id="credit" name="paymentMethod" id="credit" type="radio" class="custom-control-input" value="credit" checked required>
+							<label class="custom-control-label" for="credit">Credit card</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input id="debit" name="paymentMethod" id="debit" type="radio" class="custom-control-input" value="debit" required>
+							<label class="custom-control-label" for="debit">Debit card</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input id="paypal" name="paymentMethod" id="paypal" type="radio" class="custom-control-input" value="paypal" required>
+							<label class="custom-control-label" for="paypal">PayPal</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="cc-name" id="cc-name_label">Name on card</label>
+							<input type="text" class="form-control" id="cc-name" placeholder="John Doe" required autocomplete="off">
+							<small class="text-muted" id="cc-name_small">Full name as displayed on card</small>
+							<div class="invalid-feedback" id="cc-feedback_name">
+								Name on card is required
+							</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="cc-number" id="cc-number_label">Credit card number</label>
+							<input type="text" class="form-control" id="cc-number" placeholder="XXXX XXXX XXXX XXXX" required>
+							<div class="invalid-feedback" id="cc-feedback_number">
+								Credit card number is required
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 mb-3">
+							<label for="cc-expiration" id="cc-expiration_label">Expiration</label>
+							<input type="text" class="form-control" id="cc-expiration" placeholder="MM/YY" autocomplete="off" required>
+							<div class="invalid-feedback" id="cc-feedback_exp">
+								Expiration date required
+							</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="cc-cvv" id="cc-cvv_label">CVV</label>
+							<input type="text" class="form-control" id="cc-cvv" placeholder="123" autocomplete="off" required>
+							<div class="invalid-feedback" id="cc-feedback_cvv">
+								Security code required
+							</div>
+						</div>
+					</div>
+					<hr class="mb-4">
+					<button class="btn btn-outline-secondary btn-lg btn-block" id="bt_mdn_place_order" type="submit">Place Order</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="my-5 text-muted text-center text-small" id="footer_checkout">
+	<p class="mb-1">&copy; 2020 <span id="copyright">The 3D PRINTING Shop </span></p>
+    <ul class="list-inline">
+		<li class="list-inline-item"><a id="footer_checkout_PandT" href="{{ url_for('privacy') }}" >Privacy</a></li>
+		<li class="list-inline-item"><a id="footer_checkout_PandT" href="{{ url_for('terms') }}">Terms</a></li>
+    </ul>
+</footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/static/bootstrap.bundle.min.js"></script>
+        <script src="/static/form-validation.js"></script>
+
+<script src="/static/threedprintingjs.js"></script>
+
+
+{% endblock %}

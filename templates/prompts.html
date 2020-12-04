@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {% if missing == "cart" %}
+        Cart
+    {% elif missing == "print_jobs" %}
+        Print Status
+    {% elif missing == "orders" %}
+        My Orders
+    {% elif missing == "products" %}
+        Search Results
+    {% else %}
+        Check Out
+    {% endif %}
+{% endblock %}
+
+
+{% block article %}
+
+{% if missing == "cart" %}
+    <h3 id="message_prompt">Your cart is empty =(</h3>
+    <div id="add_to_cart">
+        <a id="add_to_cart" href="/shop_all">Start adding products to your cart</a>
+    </div>
+{% elif missing == "print_jobs" %}
+    <h3 id="message_prompt">You don't have any print job =(</h3>
+    <div id="add_to_cart">
+        <a id="add_to_cart" href="/print_new">Request a new quotation</a>
+    </div>
+{% elif missing == "orders" %}
+    <h3 id="message_prompt">You don't have any order =(</h3>
+{% elif missing == "products" %}
+    <h3 id="message_prompt">No products found =(</h3>
+{% else %}
+    <h3 id="message_prompt">Thanks for shopping. Your order has been placed! =)</h3>
+{% endif %}
+
+{% endblock %}

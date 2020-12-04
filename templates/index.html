@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block carousel %}
+
+<!-- Carousel -->
+    <div id="container">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="5000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="/static/images/carousel/carousel_1.jpg" alt="carousel_1.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/carousel/carousel_2.jpg" alt="carousel_2.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/carousel/carousel_3.jpg" alt="carousel_3.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/carousel/carousel_4.jpg" alt="carousel_4.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/carousel/carousel_5.jpg" alt="carousel_5.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block nav %}
+    <div id="left_nav">
+        <h5 id="prod_list_inner_title">3D Printers</h5>
+        {% for printer in printers %}
+            <div id="element_outter">
+                <a href="/details/{{printer.sku}}"> <div id="element">
+                    <li class="media" id="product_item">
+                        <img class="mr-3" src="{{ printer.link }}" alt="">
+                        <hr class="my-4">
+                    </li>
+                    <div id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_index" name="description">{{ printer.title }}<span></span> </h5>
+                            <p id="prod_list_inner_price">{{ printer.price_usd }}</p>
+                        </div>
+                    <div>
+                        <hr class="my-4">
+                    </div>
+                </div></a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block article %}
+
+    <div id="index_description">
+        <h2>What is 3D Printing?</h2>
+        <p>3D printing or additive manufacturing is a process of making three dimensional solid objects from a digital file.</p>
+
+        <p>The creation of a 3D printed object is achieved using additive processes. In an additive process an object is created by laying down successive layers of material until the object is created.
+        Each of these layers can be seen as a thinly sliced cross-section of the object.</p>
+
+        <p>3D printing is the opposite of subtractive manufacturing which is cutting out / hollowing out a piece of metal or plastic with for instance a milling machine.</p>
+
+        <p>3D printing enables you to produce complex shapes using less material than traditional manufacturing methods.</p>
+        <h2>How Does 3D Printing Work?</h2>
+        <p>It all starts with a 3D model. You can opt to create one from the ground up or download it from a 3D library.</p>
+        <h2>3D Software</h2>
+        <p></p>There are many different software tools available. From industrial grade to open source. We’ve created an overview on our 3D software page.</p>
+
+        <p>We often recommend beginners to start with Tinkercad. Tinkercad is free and works in your browser, you don’t have to install it on your computer.
+        Tinkercad offers beginner lessons and has a built-in feature to export your model as a printable file e.g .STL or .OBJ.</p>
+
+        <p>Now that you have a printable file, the next step is to prepare it for your 3D printer. This is called slicing.</p>
+
+        <p>Slicing: From printable file to 3D Printer.</p>
+        <br>Slicing basically means slicing up a 3D model into hundreds or thousands of layers and is done with slicing software.
+
+        <p>When your file is sliced, it’s ready for your 3D printer. Feeding the file to your printer can be done via USB, SD or Wi-Fi. Your sliced file is now ready to be 3D printed layer by layer.</p>
+
+        <h2>3D Printing Industry</h2>
+        <p>Adoption of 3D printing has reached critical mass as those who have yet to integrate additive manufacturing somewhere in their supply chain are now part of an ever-shrinking minority.
+        Where 3D printing was only suitable for prototyping and one-off manufacturing in the early stages, it is now rapidly transforming into a production technology.</p>
+
+        <p>Most of the current demand for 3D printing is industrial in nature. Acumen Research and Consulting forecasts the global 3D printing market to reach $41 billion by 2026.</p>
+
+        <p>As it evolves, 3D printing technology is destined to transform almost every major industry and change the way we live, work, and play in the future.</p>
+
+        <h2>Examples of 3D Printing</h2>
+        <p>3D printing encompasses many forms of technologies and materials as 3D printing is being used in almost all industries you could think of.
+        It’s important to see it as a cluster of diverse industries with a myriad of different applications.</p>
+
+        <h6>A few examples:</h6>
+
+        <br>– consumer products (eyewear, footwear, design, furniture)
+        <br>– industrial products (manufacturing tools, prototypes, functional end-use parts)
+        <br>– dental products
+        <br>– prosthetics
+        <br>– architectural scale models & maquettes
+        <br>– reconstructing fossils
+        <br>– replicating ancient artefacts
+        <br>– reconstructing evidence in forensic pathology
+        <br>– movie props
+
+        <p><h2>Rapid Prototyping & Rapid Manufacturing</h2></p>
+        <p>Companies have used 3D printers in their design process to create prototypes since the late seventies. Using 3D printers for these purposes is called rapid prototyping.</p>
+        <h6>Why use 3D Printers for Rapid Prototyping?</h6>
+        <p>In short: it’s fast and relatively cheap. From idea, to 3D model to holding a prototype in your hands is a matter of days instead of weeks.
+        Iterations are easier and cheaper to make and you don’t need expensive molds or tools.</p>
+
+        <p>Besides rapid prototyping, 3D printing is also used for rapid manufacturing. Rapid manufacturing is a new method of manufacturing where businesses use 3D printers for short run / small batch custom manufacturing.</p>
+
+    </div>
+
+{% endblock %}

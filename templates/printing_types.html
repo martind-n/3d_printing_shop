@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    3d Printing Types
+{% endblock %}
+
+{% block article %}
+<div class="jumbotron" id="jumbotron_info">
+    <h1>Types of 3D printing Processes and Technologies</h1>
+    <p>The American Society for Testing and Materials (ASTM), developed a set of standards that classify additive manufacturing processes into 7 categories. These are:</p>
+    <ol>
+        <li>Vat Photopolymerisation</li>
+        <ul>
+            <li>Stereolithography (SLA)</li>
+            <li>Digital Light Processing (DLP)</li>
+            <li>Continuous Liquid Interface Production (CLIP)</li>
+        </ul>
+        <li>Material Jetting</li>
+        <li>Binder Jetting</li>
+        <li>Material Extrusion</li>
+        <ul>
+            <li>Fused Deposition Modeling (FDM)</li>
+            <li>Fused Filament Fabrication (FFF)</li>
+        </ul>
+        <li>Powder Bed Fusion</li>
+        <ul>
+            <li>Multi Jet Fusion (MJF)</li>
+            <li>Selective Laser Sintering (SLS)</li>
+            <li>Direct Metal Laser Sintering (DMLS)</li>
+        </ul>
+        <li>Sheet Lamination</li>
+        <li>Directed Energy Deposition</li>
+    </ol>
+    <h3 id="info_title">Vat Photopolymerisation</h3>
+    <p>A 3D printer based on the Vat Photopolymerisation method has a container filled with photopolymer resin. The resin is hardened with a UV light source.</p>
+    <img class="mr-3" src="/static/images/types/Vat-photopolymerisation-1.jpg" alt="Vat-photopolymerisation.jpg">
+    <p id="reference">Vat photopolymerisation schematics. Image source: lboro.ac.uk</p>
+    <h5>Stereolithography (SLA)</h5>
+    <p>SLA was invented in 1986 by Charles Hull, who also at the time founded the company, 3D Systems.
+    Stereolithography employs a vat of liquid curable photopolymer resin and an ultraviolet laser to build the object’s layers one at a time.
+    For each layer, the laser beam traces a cross-section of the part pattern on the surface of the liquid resin.
+    Exposure to the ultraviolet laser light cures and solidifies the pattern traced on the resin and fuses it to the layer below.</p>
+    <p>After the pattern has been traced, the SLA’s elevator platform descends by a distance equal to the thickness of a single layer, typically 0.05 mm to 0.15 mm (0.002″ to 0.006″).
+    Then, a resin-filled blade sweeps across the cross section of the part, re-coating it with fresh material.
+    On this new liquid surface, the subsequent layer pattern is traced, joining the previous layer.
+    Depending on the object & print orientation, SLA often requires the use of support structures.</p>
+    <h5>Digital Light Processing (DLP)</h5>
+    <p>DLP or Digital Light Processing refers to a method of printing that makes use of light and photosensitive polymers.
+    While it is very similar to SLA, the key difference is the light source. DLP utilizes other light sources like arc lamps.
+    DLP is relatively quick compared to other 3D printing technologies.</p>
+    <h3 id="info_title">Continuous Liquid Interface Production (CLIP)</h3>
+    <p>One of the fastest processes using Vat Photopolymerisation is called CLIP, short for <strong>Continuous Liquid Interface Production</strong>, developed by Carbon.</p>
+    <h5>Digital Light Synthesis</h5>
+    <p>The heart of the CLIP process is <strong>Digital Light Synthesis technology.</strong>
+    In this technology, light from a custom high performance LED light engine projects a sequence of UV images exposing a cross section of the 3D printed part causing the UV curable
+    resin to partially cure in a precisely controlled way. Oxygen passes through the oxygen permeable window creating a thin liquid interface of uncured resin between the window and the
+    printed part known as the dead zone. The dead zone is as thin as ten of microns.
+    Inside the dead zone, oxygen prohibits light from curing the resin situated closest to the window therefore allowing the continuous flow of liquid beneath the printed part.
+    Just above the dead zone the UV projected light upwards causes a cascade like curing of the part.</p>
+    <p>Simply printing with Carbon’s hardware alone does not allow for end use properties with real world applications.
+    Once the light has shaped the part, a second programmable curing process achieves the desired mechanical properties by baking the 3d printed part in a thermal bath or oven.
+    Programmed thermal curing sets the mechanical properties by triggering a secondary chemical reaction causing the material to strengthen achieving the desired final properties.</p>
+    <p>Components printed with Carbon’s technology are on par with injection molded parts.
+    Digital Light Synthesis produces consistent and predictable mechanical properties, creating parts that are truly isotropic.</p>
+    <h3 id="info_title">Material Jetting</h3>
+    <p>In this process, material is applied in droplets through a small diameter nozzle, similar to the way a common inkjet paper printer works,
+    but it is applied layer-by-layer to a build platform and then hardened by UV light.</p>
+    <img class="mr-3" src="/static/images/types/material-jetting.jpg" alt="material-jetting.jpg">
+    <p id="reference">Material Jetting schematics. Image source: custompartnet.com</p>
+    <h3 id="info_title">Binder Jetting</h3>
+    <p>With binder jetting two materials are used: powder base material and a liquid binder. In the build chamber,
+    powder is spread in equal layers and binder is applied through jet nozzles that “glue” the powder particles in the required shape.
+    After the print is finished, the remaining powder is cleaned off which often can be re-used printing the next object.
+    This technology was first developed at the Massachusetts Institute of Technology in 1993.</p>
+    <img class="mr-3" src="/static/images/types/binder-jetting.jpg" alt="binder-jetting.jpg">
+    <h5>Material Extrusion</h5>
+    <h3 id="info_title">Fused Deposition Modeling (FDM)</h3>
+    <p>FDM works using a plastic filament which is unwound from a spool and is supplied to an extrusion nozzle which can turn the flow on and off.
+    The nozzle is heated to melt the material and can be moved in both horizontal and vertical directions by a numerically controlled mechanism.
+    The object is produced by extruding melted material to form layers as the material hardens immediately after extrusion from the nozzle.</p>
+    <p>FDM was invented by Scott Crump in the late 80’s. After patenting this technology he started the company Stratasys in 1988.
+    The term <strong>Fused Deposition Modeling</strong> and its abbreviation to FDM are trademarked by Stratasys Inc.</p>
+    <img class="mr-3" src="/static/images/types/fused-deposition-modeling.jpg" alt="fused-deposition-modeling.jpg">
+    <p id="reference">Image source: Wikipedia, made by user Zureks</p>
+    <h3 id="info_title">Fused Filament Fabrication (FFF)</h3>
+    <p>The exactly equivalent term, Fused Filament Fabrication (FFF), was coined by the members of the RepRap project to give a phrase that would be legally unconstrained in its use.</p>
+    <h5>Powder Bed Fusion</h5>
+    <h3 id="info_title">Selective Laser Sintering (SLS)</h3>
+    <p>SLS uses a high power laser to fuse small particles of powder into a mass that has the desired three dimensional shape.
+    The laser selectively fuses powder by first scanning the cross-sections (or layers) on the surface of a powder bed.
+    After each cross-section is scanned, the powder bed is lowered by one layer thickness.
+    Then a new layer of material is applied on top and the process is repeated until the object is completed.</p>
+    <img class="mr-3" src="/static/images/types/selective-laser-melting-system.jpg" alt="selective-laser-melting-system.jpg">
+    <p id="reference">SLS system schematic. Image source: Wikipedia from user Materialgeeza</p>
+    <h3 id="info_title">Multi Jet Fusion (MJF)</h3>
+    <p>Multi Jet Fusion technology was developed by Hewlett Packard and works with a sweeping arm which deposits a layer of powder and then another arm equipped with inkjets
+    which selectively applies a binder agent over the material. The inkjets also deposit a detailing agent around the binder to ensure precise dimensionality and smooth surfaces.
+    Finally, the layer is exposed to a burst of thermal energy that causes the agents to react.</p>
+    <h3 id="info_title">Direct Metal Laser Sintering (DMLS)</h3>
+    <p>DMLS is basically the same as SLS, but uses metal powder instead. All unused powder remains as it is and becomes a support structure for the object.
+    Unused powder can be re-used for the next print.</p>
+    <p>Due to of increased laser power, DMLS has evolved into a laser melting process. Read more about that and other metal technologies on our metal technologies overview page.</p>
+    <h5>Sheet Lamination</h5>
+    <p>Sheet lamination involves material in sheets which is bound together with external force. Sheets can be metal, paper or a form of polymer.
+    Metal sheets are welded together by ultrasonic welding in layers and then CNC milled into a proper shape.
+    Paper sheets can be used also, but they are glued by adhesive glue and cut in shape by precise blades.</p>
+    <img class="mr-3" src="/static/images/types/ultrasonic-sheet-metal-3D-printing.jpg" alt="ultrasonic-sheet-metal-3D-printing.jpg">
+    <p id="reference">Simplified model of ultrasonic sheet metal 3D printing. Image source: Wikipedia from user Mmrjf3</p>
+    <h5>Directed Energy Deposition</h5>
+    <p>This process is mostly used in the metal industry and in rapid manufacturing applications.
+    The 3D printing apparatus is usually attached to a multi-axis robotic arm and consists of a nozzle that deposits metal powder or wire on a surface and an energy source
+    (laser, electron beam or plasma arc) that melts it, forming a solid object.</p>
+    <img class="mr-3" src="/static/images/types/direct-energy-depostion.jpg" alt="direct-energy-depostion.jpg">
+    <p id="reference">Directed Energy Deposition with metal powder and laser melting. Image source: Merlin project</p>
+    <h5>Materials</h5>
+    <p>Multiple materials can be used in additive manufacturing: plastics, metals, concrete, ceramics, paper and certain edibles (e.g. chocolate).
+    Materials are often produced in wire feedstock a.k.a. 3D printer filament, powder form or liquid resin.</p>
+</div>
+{% endblock %}

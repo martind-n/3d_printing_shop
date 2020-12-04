@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+        <link href="/static/style.css" rel="stylesheet">
+
+        <!-- Header Font -->
+        <link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet'>
+
+        <title>3DPRINTING: Sign in</title>
+    </head>
+
+    <body>
+        <!-- HEADER -->
+        <header>
+            <h2><a id="header" href="/"><span id="header_small">The </span>3D PRINTING<span id="header_small"> Shop</span></a></h2>
+        </header>
+
+        <main>
+            <div class="form_input">
+                <form action="/login" method="post">
+                    <div class="form-group">
+                        <input autofocus class="form-control" name="email" placeholder="Email" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="password" placeholder="Password" type="password">
+                    </div>
+                    <button class="btn btn-outline-secondary" id="bt_mdn_log" type="submit">Sign In</button>
+                </form>
+            </div>
+
+            <footer class="login_footer">
+                <a id="new_user" href="/register">New User? Register for a new account</a>
+            </footer>
+        </main>
+
+    </body>
+</html>

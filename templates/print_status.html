@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Printing Status
+{% endblock %}
+
+{% block article %}
+
+{% if not print_jobs %}
+    <h3 id="empty_cart">You don't have any print job =(</h3>
+{% else %}
+<div id="prod_list">
+    <ul class="list-unstyled">
+        {% for print in print_jobs %}
+            <div id="element_outter">
+                <a href="/details/{{print.sku}}"> <div id="element">
+                    <li class="media">
+                        <img class="mr-3" src="/static/images/printing_job.jpg" alt="{{print.file}}">
+                        <div class="media-body" id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{print.file}} - <span>$ {{print.total}}</span> </h5>
+                            <p>{{print.material}}, {{print.color}}</p>
+                            <h5>Status: {{print.status}}</h5>
+                        </div>
+                    </li>
+                </div></a>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

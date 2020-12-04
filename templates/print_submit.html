@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Product Details
+{% endblock %}
+
+{% block article %}
+
+<div class="jumbotron" id="jumbotron">
+    <div class="media">
+        <img class="align-self-start mr-3" src="/static/images/printing.jpg" alt="printing.png" id="prod_specs_img">
+        <div class="media-body">
+            <h1 class="display-4">Get your printed models in a few simple steps</h1>
+            <hr class="my-4">
+            <p class="lead" id="prod_specs_title">Let's begin</p>
+            <h6 id="print_step">First, select the model you want us to print for you (XXXX.stl) </h6>
+            <form action="/print_new" method="post" enctype="multipart/form-data">
+                <input class="btn btn-secondary btn-lg" id="bt_mdn_print" type="file" name="file">
+                <h6 id="print_step_long">Then, select material and color </h6>
+                <div class="flex-container" id="material">
+                    <div class="flex-child_left form-group">
+                        <select class="form-control" name="material" id="materials" onchange="btn_enabling()">
+                             <option value="Material" disabled selected>Material</option>
+                             <option value="ABS">ABS</option>
+                             <option value="PLA">PLA</option>
+                             <option value="PETG">PETG</option>
+                             <option value="TPU">TPU</option>
+                        </select>
+                    </div>
+                    <div class="flex-child_right form-group" id="color">
+                        <select class="form-control" name="color" id="colors" onchange="btn_enabling()">
+                            <option value="Color" disabled selected>Color</option>
+                            <option value="Black">Black</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Red">Red</option>
+                            <option value="Green">Green</option>
+                            <option value="Orange">Orange</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Pink">Pink</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="copies_qtty">
+                <h6 id="print_step">How many copies do you want? </h6>
+                <div class="form-group">
+                    <input class="form-control" id="prod_quantity_print" name="quantity" value="1">
+                </div>
+                </div>
+                <div class="form-group">
+                    <h6 id="print_step_long">Add some comments</h6>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comments" value="TEST "></textarea>
+                </div>
+                <div id="quotate">
+                    <h6 id="print_step">Get a quotation </h6>
+                    <input class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_print_quotate" type="submit" value="Quotate" disabled>
+                     <!-- placeholder for the units in stock, to be read from the script -->
+                    <input class="form-control" id="prod_quotation" name="prod_quotation" type="hidden" value="{{ quotation }}">
+                    <p id="quotation_result"></p>
+                </div>
+                <div id="check_out">
+                    <h6 id="print_step">Finally, proceed to check out</h6>
+                    <input class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_print_checkout" type="submit" value="Add to cart" disabled>
+                </div>
+            </form>
+            <h6 id="print_step_final" onload="quotation()">That's IT! </h6>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    // run the function to show quotation right after the page is reloaded after returning from POST
+    document.getElementById("quotation_result").addEventListener("load", quotation());
+
+    // run the function to enable checkout button right after the page is reloaded after returning from POST
+    document.getElementById("quotation_result").addEventListener("load", enable_checkout());
+
+    function btn_enabling()
+    {
+        // Check if material and color has been selected before enable Quotation button
+        if (document.getElementById('materials').value != "Material" && document.getElementById('colors').value != "Color")
+            {
+                document.getElementById('bt_mdn_print_quotate').disabled = false;
+            }
+    }
+    // Call quotation function to show quotation result by modifying <p> internalHTML
+    function quotation()
+    {
+        let quotation = "Your quotation is: ";
+
+        if (document.getElementById('prod_quotation').value)
+        {
+            document.getElementById("quotation_result").innerHTML = quotation.concat(document.getElementById("prod_quotation").value)
+        }
+    }
+
+    // if quotation result <p> is not empty, enable the button to checkout
+    function enable_checkout()
+    {
+        if (document.getElementById("quotation_result").innerHTML != '')
+        {
+            document.getElementById("bt_mdn_print_checkout").disabled = false;
+        }
+    }
+
+</script>
+
+
+{% endblock %}

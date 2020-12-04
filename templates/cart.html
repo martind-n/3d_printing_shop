@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block article %}
+
+
+<div id="cart_prod_list">
+    <ul class="list-unstyled">
+        <table>
+            <thead>
+                <tr id="tr">
+                    <th id="cart_th_pr">Product</th>
+                    <th id="cart_th_qtty">Quantity</th>
+                    <th id="cart_th">Total</th>
+                </tr>
+            </thead>
+
+        {% for product in cart %}
+            <tbody>
+                <tr id="tr">
+                    <td id="element_outter_left">
+                        <div id="element_outter_left">
+                            <a href="/details/{{product.sku}}">
+                                <div id="cart_element_left">
+                                    <li class="media">
+                                        <img class="mr-3" src="{{product.link}}" alt="{{product.title}}">
+                                        <div class="media-body" id="cart_prod_list_inner">
+                                            {% if product.id != 0 %}
+                                                <h6 class="mt-0 mb-1" id="cart_prod_list_inner_head">{{product.title}}<h6>
+                                            {% else %}
+                                                <h6 class="mt-0 mb-1" id="cart_prod_list_inner_head">{{product.title}} - {{product.file}}<h6>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td id="cart_element_qtty">
+                        <div id="qtty_control">
+                            <form action="/update_cart" method="post">
+
+                                <!-- if produtc is not "printing job" show + and - buttons -->
+                                {% if product.id != 0 %}
+                                    <button onclick="counter_del({{product.id}})" class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_del" type="submit"><img src="/static/images/delete.png"></img></button>
+                                    <button onclick="counter_min({{product.id}})" class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_min" type="submit">-</button>
+                                    <div class="form-group">
+                                        <!-- placeholder for product[id] to be read by update_cart to build name="quantity{{product.id}}" below -->
+                                        <input name="id" type="hidden" value="{{ product.id }}">
+                                        <!-- placeholder for product[stock] to be read by counter_add({{product.id}}) to get stock name="quantity{{product.stock}}" below -->
+                                        <input name="stock{{product.id}}" type="hidden" value="{{ product.stock }}">
+                                        <!-- placeholder for product[quantity] to be read by counter_add({{product.id}}) to set quantity to 0 and avoida user seeing it -->
+                                        <input class="form-control" id="prod_quantity" type="hidden" name="quantityhidden{{product.id}}" value="{{product.quantity}}">
+                                        <input class="form-control" id="prod_quantity" name="quantity{{product.id}}" value="{{product.quantity}}">
+                                    </div>
+                                    <button onclick="counter_add({{product.id}})" class="btn btn-outline-secondary" id="bt_mdn_add" type="submit">+</button>
+                                {% else %}
+                                    <button onclick="counter_del_print({{product.sku}})" class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_del" type="submit"><img src="/static/images/delete.png"></img></button>
+                                    <div class="form-group">
+                                        <!-- placeholder for product[id] to be read by update_cart to build name="quantity{{product.id}}" below -->
+                                        <input name="id" type="hidden" value="print">
+                                        <!-- placeholder for print job_id to be able to delete it from cart -->
+                                        <input class="form-control" id="prod_quantity" type="hidden" name="sku" value="{{product.sku}}">
+                                        <input class="form-control" id="prod_quantity" name="quantity{{product.id}}" value="1" disabled>
+                                    </div>
+                                {% endif %}
+                            </form>
+
+                            <script src="/static/threedprintingjs.js"></script>
+                        </div>
+                    </td>
+                    <td id="cart_element_total">
+                        {{product.total_usd}}
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+            <tfoot>
+                <tr id="tr_tf">
+                    <td id="cart_tf_total" colspan="2" >TOTAL</td>
+                    <td id="cart_tf">{{ cart_amount }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <form action="/checkout" method="get">
+                            <div id="checkout">
+                                <button class="btn btn-outline-secondary my-2 my-sm-0" id="bt_mdn_checkout" type="submit">Check Out!</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </ul>
+</div>
+
+
+{% endblock %}

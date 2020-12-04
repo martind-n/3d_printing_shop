@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Orders
+{% endblock %}
+
+{% block article %}
+
+<div id="prod_list">
+    <ul class="list-unstyled">
+        {% for order in orders %}
+            <div id="element_outter">
+                <a href="/order_details/{{order.order_id}}"> <div id="element">
+                    <li class="media" id="product_item">
+                        <img id="orders_image" class="mr-3" src="/static/images/cart_full.png" alt="cart_full.png">
+                        <hr class="my-4">
+                        <div class="media-body" id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">Order #{{order.order_id}} - <span>{{order.total_usd}}</span> </h5>
+                            Placed on: {{order.date}}
+                            <br> Items: {{order.items_}}
+                            <br> Status: {{order.status}}
+                        </div>
+                    </li>
+                    <div>
+                        <hr class="my-4">
+                    </div>
+                </div></a>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

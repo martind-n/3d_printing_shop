@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    3d Filaments Info
+{% endblock %}
+
+{% block article %}
+<div class="jumbotron" id="jumbotron_info">
+    <h1>Filaments info and main characteristics</h1>
+    <p></p>
+    <h2>Standard Filaments</h2>
+    <hr class="my-4">
+    {% for filament in standard %}
+        <div id="element_outter">
+            <div>
+                <li class="media" >
+                    <img class="mr-3" src="/static/images/spools.jpg" alt="spools.jpg">
+                    <hr class="my-4">
+                    <div class="media-body" id="prod_list_inner">
+                        <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{ filament.name }}<span style="font-style:italic"> - {{ filament.formula }}</span> </h5>
+                        <ul>
+                            <li>EXTRUDER TEMP: {{ filament.etemp }}</li>
+                            <li>BED TEMP: {{ filament.btemp }}</li>
+                            <li>BED ADHESION: {{ filament.badhesion }}</li>
+                        </ul>
+                        <p>{{ filament.description }}</p>
+                        <p>PLA 3D Printing Filament Properties:</p>
+                        <ul>
+                            <li>{{ filament.prop1 }}</li>
+                            <li>{{ filament.prop2 }}</li>
+                            <li>{{ filament.prop3 }}</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    {% endfor %}
+    <h2>Composite Filaments</h2>
+    <hr class="my-4">
+    {% for filament in composite %}
+        <div id="element_outter">
+            <div>
+                <li class="media" >
+                    <img class="mr-3" src="/static/images/spools.jpg" alt="spools.jpg">
+                    <hr class="my-4">
+                    <div class="media-body" id="prod_list_inner">
+                        <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{ filament.name }}<span style="font-style:italic"> - {{ filament.formula }}</span> </h5>
+                        <ul>
+                            <li>EXTRUDER TEMP: {{ filament.etemp }}</li>
+                            <li>BED TEMP: {{ filament.btemp }}</li>
+                            <li>BED ADHESION: {{ filament.badhesion }}</li>
+                        </ul>
+                        <p>{{ filament.description }}</p>
+                        <p>PLA 3D Printing Filament Properties:</p>
+                        <ul>
+                            <li>{{ filament.prop1 }}</li>
+                            <li>{{ filament.prop2 }}</li>
+                            <li>{{ filament.prop3 }}</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    {% endfor %}
+    <h2>Flexible Filaments</h2>
+    <hr class="my-4">
+    {% for filament in flexible %}
+        <div id="element_outter">
+            <div>
+                <li class="media" >
+                    <img class="mr-3" src="/static/images/spools.jpg" alt="spools.jpg">
+                    <hr class="my-4">
+                    <div class="media-body" id="prod_list_inner">
+                        <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{ filament.name }}<span style="font-style:italic"> - {{ filament.formula }}</span> </h5>
+                        <ul>
+                            <li>EXTRUDER TEMP: {{ filament.etemp }}</li>
+                            <li>BED TEMP: {{ filament.btemp }}</li>
+                            <li>BED ADHESION: {{ filament.badhesion }}</li>
+                        </ul>
+                        <p>{{ filament.description }}</p>
+                        <p>PLA 3D Printing Filament Properties:</p>
+                        <ul>
+                            <li>{{ filament.prop1 }}</li>
+                            <li>{{ filament.prop2 }}</li>
+                            <li>{{ filament.prop3 }}</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    {% endfor %}
+    <h2>Specialty Filaments</h2>
+    <hr class="my-4">
+    {% for filament in specialty %}
+        <div id="element_outter">
+            <div>
+                <li class="media" >
+                    <img class="mr-3" src="/static/images/spools.jpg" alt="spools.jpg">
+                    <hr class="my-4">
+                    <div class="media-body" id="prod_list_inner">
+                        <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{ filament.name }}<span style="font-style:italic"> - {{ filament.formula }}</span> </h5>
+                        <ul>
+                            <li>EXTRUDER TEMP: {{ filament.etemp }}</li>
+                            <li>BED TEMP: {{ filament.btemp }}</li>
+                            <li>BED ADHESION: {{ filament.badhesion }}</li>
+                        </ul>
+                        <p>{{ filament.description }}</p>
+                        <p>PLA 3D Printing Filament Properties:</p>
+                        <ul>
+                            <li>{{ filament.prop1 }}</li>
+                            <li>{{ filament.prop2 }}</li>
+                            <li>{{ filament.prop3 }}</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    {% endfor %}
+    <h2>Support Filaments</h2>
+    <hr class="my-4">
+    {% for filament in support %}
+        <div id="element_outter">
+            <div>
+                <li class="media" >
+                    <img class="mr-3" src="/static/images/spools.jpg" alt="spools.jpg">
+                    <hr class="my-4">
+                    <div class="media-body" id="prod_list_inner">
+                        <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{ filament.name }}<span style="font-style:italic"> - {{ filament.formula }}</span> </h5>
+                        <ul>
+                            <li>EXTRUDER TEMP: {{ filament.etemp }}</li>
+                            <li>BED TEMP: {{ filament.btemp }}</li>
+                            <li>BED ADHESION: {{ filament.badhesion }}</li>
+                        </ul>
+                        <p>{{ filament.description }}</p>
+                        <p>PLA 3D Printing Filament Properties:</p>
+                        <ul>
+                            <li>{{ filament.prop1 }}</li>
+                            <li>{{ filament.prop2 }}</li>
+                            <li>{{ filament.prop3 }}</li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

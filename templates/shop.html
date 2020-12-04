@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block article %}
+
+{% if not products %}
+    <h3 id="empty_cart">No results =(</h3>
+{% else %}
+<div id="prod_list">
+    <ul class="list-unstyled">
+        {% for product in products %}
+            <div id="element_outter">
+                <a href="/details/{{product.sku}}"> <div id="element">
+                    <li class="media" id="product_item">
+                        <img class="mr-3" src="{{product.link}}" alt="{{product.title}}">
+                        <hr class="my-4">
+                        <div class="media-body" id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{product.title}} - <span>{{product.price_usd}}</span> </h5>
+                            {{product.description}}
+                        </div>
+                    </li>
+                    <div>
+                        <hr class="my-4">
+                    </div>
+                </div></a>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

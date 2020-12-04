@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Order Details
+{% endblock %}
+
+{% block article %}
+
+<div id="prod_list">
+    <ul class="list-unstyled">
+        {% for product in products %}
+            <div id="element_outter">
+                <a href="/details/{{product['sku']}}"> <div id="element">
+                <div id="element">
+                    <li class="media" id="product_item">
+                        <img class="mr-3" src="{{product['link']}}" alt="{{product['title']}}">
+                        <hr class="my-4">
+                        <div class="media-body" id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">{{product.title}} - <span>{{product.price_usd}}</span> </h5>
+                            Units: {{product.quantity}}
+                        </div>
+                    </li>
+                    <div>
+                        <hr class="my-4">
+                    </div>
+                </div></a>
+            </div>
+        {% endfor %}
+        {% for print in prints %}
+            <div id="element_outter">
+                <a href="/details/{{print.sku}}"> <div id="element">
+                <div id="element">
+                    <li class="media" id="product_item">
+                        <img class="mr-3" src="/static/images/printing_job.jpg" alt="printing_job.jpg">
+                        <hr class="my-4">
+                        <div class="media-body" id="prod_list_inner">
+                            <h5 class="mt-0 mb-1" id="prod_list_inner_head" name="description">Printing Job - <span>{{print.total_usd}}</span> </h5>
+                            Units: {{print.quantity}}
+                            <br>Comments: {{print.comments}}
+                        </div>
+                    </li>
+                    <div>
+                        <hr class="my-4">
+                    </div>
+                </div></a>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
